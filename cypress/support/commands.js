@@ -18,6 +18,28 @@ Cypress.Commands.add('updateUser', (user, id) => {
     });
 });
 
+Cypress.Commands.add('getUser', (id) => {
+
+    const userId = id || " ";
+
+    return cy.request({
+        method: 'GET',
+        url: `/users/${userId}`,
+        failOnStatusCode: false
+    });
+});
+
+Cypress.Commands.add('deleteUser', (id) => {
+
+    const userId = id || " ";
+
+    return cy.request({
+        method: 'DELETE',
+        url: `/users/${userId}`,
+        failOnStatusCode: false
+    });
+});
+
 Cypress.Commands.add('createProduct', (product) => {
     return cy.request({
         method: 'POST',
