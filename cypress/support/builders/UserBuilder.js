@@ -1,11 +1,11 @@
 import { faker } from '@faker-js/faker';
 
-export class UsuarioBuilder {
+export class UserBuilder {
     constructor() {
         this.usuario = {
             username: faker.internet.username(),
             email: faker.internet.email(),
-            password: 'senha123'
+            password: Cypress.env('password')
         };
     }
 
