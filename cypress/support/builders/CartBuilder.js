@@ -3,7 +3,8 @@ export class CartBuilder {
         this.carrinho = {
             userId: 1,
             products: [
-                { productId: 1, quantity: 1 }
+                { productId: 1, quantity: 2 },
+                { productId: 2, quantity: 3 }
             ]
         };
     }
@@ -20,11 +21,6 @@ export class CartBuilder {
 
     setProducts(productsArray) {
         this.carrinho.products = productsArray;
-        return this;
-    }
-
-    clearProducts() {
-        this.carrinho.products = [];
         return this;
     }
 

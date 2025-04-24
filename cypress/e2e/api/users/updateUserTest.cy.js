@@ -21,7 +21,7 @@ describe('Teste na atualização de usuários', () => {
 
     it('Atualizar usuário inexistente', () => {
 
-        const user = new UserBuilder().withEmail("emailInvalido").build();
+        const user = new UserBuilder().build();
 
         cy.updateUser(user, 99999).then((response) => {
             expect(response.status).to.eq(404);

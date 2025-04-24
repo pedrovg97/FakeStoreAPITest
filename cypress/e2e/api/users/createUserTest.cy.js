@@ -1,4 +1,5 @@
 import {UserBuilder} from "../../../support/builders/UserBuilder";
+import {CartBuilder} from "../../../support/builders/CartBuilder";
 
 describe('Teste na criação de usuários', () => {
 
@@ -51,5 +52,42 @@ describe('Teste na criação de usuários', () => {
             expect(response.body).to.have.property('messege');
         });
     });
+
+    it('Tentar criar usuario passando um id no endpoint', () => {
+
+        const user = new UserBuilder().build();
+
+        cy.request({
+            method: 'POST',
+            url: '/users/1',
+            body: user,
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.be.oneOf([404, 405])
+            expect(response.body).to.have.property('messege');
+        });
+    });
+
+    it('Tentar criar usuário passando um XML no body', () => {
+        const xmlBody =
+            `<user>
+                <name>João</name>
+                <email>joao@email.com</email>
+                <password>joao@email.com</password>
+            </user>`;
+
+        cy.request({
+            method: 'POST',
+            url: '/users',
+            headers: {
+                'Content-Type': 'application/xml',
+            },
+            body: xmlBody,
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.be.oneOf([400, 405]);
+        });
+    });
+
 });
 
