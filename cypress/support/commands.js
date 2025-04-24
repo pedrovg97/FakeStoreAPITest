@@ -18,13 +18,17 @@ Cypress.Commands.add('updateUser', (user, id) => {
     });
 });
 
-Cypress.Commands.add('getUser', (id) => {
+Cypress.Commands.add('getUser', (id, auth) => {
 
+    const token =  auth || " ";
     const userId = id || " ";
 
     return cy.request({
         method: 'GET',
         url: `/users/${userId}`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
         failOnStatusCode: false
     });
 });
@@ -119,5 +123,7 @@ Cypress.Commands.add('login', (username, password) => {
             password: password
         },
         failOnStatusCode: false
+    }).then(({ body }) => {
+        Cypress.env('token', body.token);
     });
 });

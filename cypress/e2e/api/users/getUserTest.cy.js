@@ -2,6 +2,13 @@ import {UserBuilder} from "../../../support/builders/UserBuilder";
 
 describe('Teste na listagem de usuários', () => {
 
+    before(() => {
+        const username = Cypress.env('username');
+        const password = Cypress.env('password');
+
+        cy.login(username, password);
+    });
+
     it('Obter todos os usuários', () => {
 
         cy.getUser().then((response) => {
@@ -39,6 +46,17 @@ describe('Teste na listagem de usuários', () => {
 
         cy.getUser(9999).then((response) => {
             expect(response.status).to.eq(404);
+        });
+    });
+
+    it('Obter todos os usuários sem ter um token de permissão', () => {
+
+        cy.request({
+            method: 'GET',
+            url: `/users`,
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.eq(401);
         });
     });
 });
