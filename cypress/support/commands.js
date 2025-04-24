@@ -58,6 +58,17 @@ Cypress.Commands.add('updateProduct', (product, id) => {
     });
 });
 
+Cypress.Commands.add('getProduct', (id) => {
+
+    const productId = id || " ";
+
+    return cy.request({
+        method: 'GET',
+        url: `/products/${productId}`,
+        failOnStatusCode: false
+    });
+});
+
 Cypress.Commands.add('createCart', (cart) => {
     return cy.request({
         method: 'POST',
@@ -75,6 +86,29 @@ Cypress.Commands.add('updateCart', (cart, id) => {
         failOnStatusCode: false
     });
 });
+
+Cypress.Commands.add('getCart', (id) => {
+
+    const cartId = id || " ";
+
+    return cy.request({
+        method: 'GET',
+        url: `/carts/${cartId}`,
+        failOnStatusCode: false
+    });
+});
+
+Cypress.Commands.add('deleteCart', (id) => {
+
+    const cartId = id || " ";
+
+    return cy.request({
+        method: 'DELETE',
+        url: `/carts/${cartId}`,
+        failOnStatusCode: false
+    });
+});
+
 
 Cypress.Commands.add('login', (username, password) => {
     return cy.request({
